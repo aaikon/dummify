@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# WXT build output & generated types
+.output/
+.wxt/
+web-ext.config.ts
+
+# test & tooling
+coverage/
+*.log
+
+# env & OS
+.env
+.env.*
+!.env.example
+.DS_Store

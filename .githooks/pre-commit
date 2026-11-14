@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# pre-commit hook: enforces the branch flow in docs/conventions.md → Git.
+#   - no direct commits on protected branches (main = production, dev = integration)
+#   - work branches must follow Conventional Branch naming
+# Install once per clone: scripts/install-hooks.sh
+set -euo pipefail
+
+branch="$(git symbolic-ref --short -q HEAD || true)"
+[[ -z "$branch" ]] && exit 0   # detached HEAD (rebase in progress, etc.)
+
+# Finishing a merge (e.g. after resolving conflicts) is how protected branches receive work, so allow it.
+[[ -f "$(git rev-parse --git-path MERGE_HEAD)" ]] && exit 0
+
+case "$branch" in
+  main|dev)
+    cat >&2 <<EOF
+✘ direct commits to '$branch' are not allowed (main = production, dev = integration).
+  Create a work branch from dev and merge it back:
+    git switch dev && git switch -c feature/t-nnn-short-description
+  See docs/conventions.md → Git.
+EOF
+    exit 1 ;;
+esac
+
+if ! [[ "$branch" =~ ^(feature|bugfix|hotfix|chore)/[a-z0-9]+(-[a-z0-9]+)*$ \
+     || "$branch" =~ ^release/v?[0-9]+(\.[0-9]+)*(-[a-z0-9.]+)?$ ]]; then
+  cat >&2 <<EOF
+✘ branch '$branch' doesn't follow Conventional Branch naming.
+  Use <type>/<description>, where type is feature | bugfix | hotfix | release | chore,
+  and the description is lowercase a-z, 0-9 and single hyphens, e.g. feature/t-005-csv-export.
+  Rename it with: git branch -m <new-name>
+EOF
+  exit 1
+fi
+exit 0

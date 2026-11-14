@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# commit-msg hook: enforces Conventional Commits as described in docs/conventions.md → Git.
+# Install once per clone: scripts/install-hooks.sh
+set -euo pipefail
+
+MSG_FILE="$1"
+TYPES="feat|fix|docs|refactor|perf|test|build|ci|style|chore|revert"
+MAX_HEADER=72
+
+# Strip git's comment lines and everything below the scissors line (commit -v).
+msg="$(sed -e '/^# ------------------------ >8 ------------------------$/,$d' -e '/^#/d' "$MSG_FILE")"
+header="$(printf '%s\n' "$msg" | sed -n '1p')"
+
+# Let git-generated messages through.
+case "$header" in
+  "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
+esac
+
+errors=()
+fail() { errors+=("$1"); }
+
+if [[ -z "${header// /}" ]]; then
+  fail "commit message is empty"
+elif ! [[ "$header" =~ ^($TYPES)(\([a-z0-9._/-]+\))?(!)?:\ (.+)$ ]]; then
+  fail "header must match '<type>[(scope)][!]: <description>'"
+  fail "  allowed types: ${TYPES//|/, }"
+  fail "  scope: lowercase a-z, 0-9, . _ / -"
+else
+  breaking="${BASH_REMATCH[3]}"
+  desc="${BASH_REMATCH[4]}"
+  [[ "$desc" =~ ^[A-Z] ]] && fail "description must start lowercase: '$desc'"
+  [[ "$desc" == *. ]]     && fail "description must not end with a period"
+  [[ "$desc" =~ ^\  ]]    && fail "exactly one space after the colon"
+  if [[ -n "$breaking" ]] && ! printf '%s\n' "$msg" | grep -Eq '^BREAKING[ -]CHANGE: .+'; then
+    fail "'!' marks a breaking change; add a 'BREAKING CHANGE: <what & how to migrate>' footer"
+  fi
+fi
+
+(( ${#header} > MAX_HEADER )) && fail "header is ${#header} chars (max $MAX_HEADER)"
+
+line2="$(printf '%s\n' "$msg" | sed -n '2p')"
+[[ -n "$line2" ]] && fail "leave a blank line between the header and the body"
+
+if (( ${#errors[@]} )); then
+  {
+    echo "✘ commit message rejected (Conventional Commits, see docs/conventions.md → Git):"
+    printf '    %s\n' "${errors[@]}"
+    echo
+    echo "  got: $header"
+    echo "  e.g. feat(parser): support nested lists"
+  } >&2
+  exit 1
+fi
+
+# Soft check: tie commits to tasks.
+if ! printf '%s\n' "$msg" | grep -Eq '^Refs: T-[0-9]+'; then
+  echo "! no 'Refs: T-NNN' footer. Fine for trivial commits, but link a task when there is one." >&2
+fi
+exit 0

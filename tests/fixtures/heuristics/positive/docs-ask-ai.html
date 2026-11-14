@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- Synthetic docs site with typical "Ask AI" entry points. data-expect marks what heuristics must do. -->
+<html lang="en">
+  <head><title>Widget SDK docs</title></head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="logo">Widget SDK</a>
+      <button class="search-button" data-expect="visible">Search</button>
+      <button class="header-ask-ai" id="ask-ai" data-expect="hidden">
+        <svg class="icon icon-sparkles" aria-hidden="true"></svg>
+        Ask AI
+      </button>
+      <button aria-label="Ask AI" id="ask-ai-icon" data-expect="hidden"><svg aria-hidden="true"></svg></button>
+    </header>
+    <nav class="sidebar" data-expect="visible">
+      <a href="/docs/install">Install</a>
+      <a href="/docs/ai-assistant">AI assistant</a>
+      <a href="/docs/ask-ai">Ask AI</a>
+    </nav>
+    <main>
+      <h1>Getting started</h1>
+      <p data-expect="visible">Install the SDK. You can also use the AI assistant to answer questions.</p>
+    </main>
+    <div id="kapa-widget-container" data-expect="hidden">
+      <button class="kapa-launcher">Ask</button>
+    </div>
+    <div class="DocSearch-Modal">
+      <div class="DocSearch-SearchBar" data-expect="visible"><input placeholder="Search docs" /></div>
+      <div class="DocSearch-AskAiScreen" data-expect="hidden"><p>Ask AI about Widget SDK</p></div>
+    </div>
+  </body>
+</html>

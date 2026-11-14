@@ -1,0 +1,21 @@
+<!doctype html>
+<!-- Synthetic news article with AI summarize buttons. The article itself must stay. -->
+<html lang="en">
+  <head><title>City council votes on budget</title></head>
+  <body>
+    <main>
+      <article id="article" data-expect="visible">
+        <h1>City council votes on budget</h1>
+        <div class="toolbar">
+          <button class="share" data-expect="visible">Share</button>
+          <button class="summarize-btn" id="summarize" data-expect="hidden">
+            <svg class="icon-sparkle" aria-hidden="true"></svg>
+            Summarize
+          </button>
+          <button id="summarize-with-ai" data-expect="hidden">✨ Summarize with AI</button>
+        </div>
+        <p data-expect="visible">The council approved the budget after a long debate.</p>
+      </article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Synthetic webmail compose view with an AI writing button and an AI side panel. -->
+<html lang="en">
+  <head><title>Compose</title></head>
+  <body>
+    <div class="app">
+      <form class="compose" data-expect="visible">
+        <input name="to" placeholder="To" />
+        <textarea name="body"></textarea>
+        <div class="compose-toolbar">
+          <button type="submit" data-expect="visible">Send</button>
+          <button type="button" id="help-me-write" data-expect="hidden">Help me write</button>
+        </div>
+      </form>
+      <aside class="side-panel" aria-label="AI assistant" id="assistant" data-expect="hidden">
+        <h2>Assistant</h2>
+        <p>Draft a reply, or ask about this thread.</p>
+        <p><small>AI responses may contain mistakes. Check important info.</small></p>
+      </aside>
+    </div>
+  </body>
+</html>

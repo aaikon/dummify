@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="dummify">
+  <!-- dummify tile mark: crash-test marker on an ink tile. Proportions measured from the owner's
+       "Final logo.pdf" (T-029): corner radius 0.244, ring centre radius 0.355 / stroke 0.052, disk 0.283. -->
+  <rect width="128" height="128" rx="31" fill="#111111"/>
+  <circle cx="64" cy="64" r="45.45" fill="none" stroke="#FFC400" stroke-width="6.6"/>
+  <path d="M64 64H27.8A36.2 36.2 0 0 1 64 27.8Z" fill="#FFC400"/>
+  <path d="M64 64H100.2A36.2 36.2 0 0 1 64 100.2Z" fill="#FFC400"/>
+</svg>

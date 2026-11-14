@@ -1,0 +1,110 @@
+/* Onboarding page (T-029). Tokens only; brand rules in docs/style-guide.md → Brand. */
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.onboarding {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Hero: the "stacked" brand panel. Ink on Crash Yellow (11.8:1). */
+.onboarding-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-panel);
+  background: var(--brand-yellow);
+  color: var(--brand-ink);
+}
+
+.onboarding-hero h1 {
+  margin: 0;
+  line-height: 1;
+}
+
+.onboarding-hero .lockup {
+  color: var(--brand-ink);
+}
+
+.tagline {
+  margin: 0;
+  font-size: var(--font-md);
+  font-weight: 500;
+}
+
+.onboarding-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-panel);
+  background: var(--color-card);
+  box-shadow: inset 0 0 0 1px var(--color-hairline);
+}
+
+.onboarding-step h2 {
+  margin: 0;
+  font-size: var(--font-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+.onboarding-step p {
+  margin: 0;
+  line-height: var(--line-text);
+}
+
+.onboarding-hides {
+  align-self: stretch;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-control);
+  background: var(--color-fill);
+}
+
+.onboarding-hides h3 {
+  margin: 0 0 var(--space-2);
+  color: var(--color-secondary);
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+.onboarding-hides ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1_5);
+  margin: 0;
+  padding-left: 1.25em;
+  list-style: disc;
+}
+
+.onboarding-hides li {
+  line-height: var(--line-text);
+}
+
+.onboarding-hides li::marker {
+  color: var(--color-secondary);
+}
+
+.onboarding-step .button {
+  height: 40px;
+  padding: 0 var(--space-6);
+}
+
+.onboarding-status:empty {
+  display: none;
+}
+
+.onboarding-status {
+  color: var(--color-warn);
+}

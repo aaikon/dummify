@@ -1,0 +1,105 @@
+/*
+ * Design tokens: the single source of visual values. Mirrors docs/style-guide.md.
+ * Change the guide first, then this file. Component CSS must only reference these variables.
+ */
+@import '@fontsource-variable/geist/wght.css';
+/* Brand wordmark font: Bricolage Grotesque ExtraBold, latin only (~22 kB, OFL), bundled (no remote fonts). */
+@import '@fontsource/bricolage-grotesque/latin-800.css';
+
+:root {
+  color-scheme: light dark;
+
+  /* Brand (owner's "Final logo" sheet, T-029). Crash Yellow is never text or an outline on paper (1.5:1). */
+  --brand-yellow: #ffc400;
+  --brand-ink: #111111;
+  --brand-paper: #fafaf7;
+  --font-brand: 'Bricolage Grotesque', var(--font-sans);
+  --tracking-brand: -0.035em;
+
+  /* Color (light): brand paper and ink */
+  --color-bg: #fafaf7;
+  --color-card: #ffffff;
+  --color-fill: #eeeeeb;
+  --color-fill-hover: rgb(0 0 0 / 0.07);
+  --color-hairline: rgb(0 0 0 / 0.1);
+  --color-ink: #111111;
+  --color-on-ink: #fafaf7;
+  --color-secondary: #60605f;
+  --color-control: #7a7a78;
+  --color-ok: #00733f;
+  --color-ok-bg: #ebfbf4;
+  --color-ok-dot: #00c972;
+  --color-danger: #cd2834;
+  --color-warn: #9a3f0c;
+  --color-warn-bg: #fcebe2;
+
+  /* Typography */
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-2xs: 11px;
+  --font-xs: 12px;
+  --font-sm: 13px;
+  --font-md: 15px;
+  --font-lg: 20px;
+  --line-label: 18px;
+  --line-text: 1.6;
+  --line-tight: 1.2;
+  --tracking-tight: -0.01em;
+
+  /* Spacing (2px half-steps) */
+  --space-0_5: 2px;
+  --space-1: 4px;
+  --space-1_5: 6px;
+  --space-2: 8px;
+  --space-2_5: 10px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+  /* Size & shape */
+  --h-chip: 26px;
+  --h-button: 30px;
+  --h-row: 36px;
+  --radius-control: 7px;
+  --radius-panel: 12px;
+  --radius-pill: 9999px;
+  --popup-width: 320px;
+  --shadow-popover:
+    0 0 0 1px rgb(0 0 0 / 0.04), 0 14px 32px -8px rgb(50 50 93 / 0.24),
+    0 4px 10px -4px rgb(0 0 0 / 0.1);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration: 200ms;
+  --duration-slow: 300ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #16161a;
+    --color-card: #1f1f24;
+    --color-fill: #2d2d31;
+    --color-fill-hover: rgb(255 255 255 / 0.15);
+    --color-hairline: rgb(255 255 255 / 0.15);
+    --color-ink: #f4f4f5;
+    --color-on-ink: #16161a;
+    --color-secondary: #a9a9ab;
+    --color-control: #909092;
+    --color-ok: #3ee09a;
+    --color-ok-bg: #132b25;
+    --color-danger: #fd5c6a;
+    --color-warn: #f5a46e;
+    --color-warn-bg: #452a1e;
+    --shadow-popover:
+      0 0 0 1px rgb(255 255 255 / 0.1), 0 14px 32px -8px rgb(0 0 0 / 0.6),
+      0 4px 10px -4px rgb(0 0 0 / 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration: 0ms;
+    --duration-slow: 0ms;
+  }
+}

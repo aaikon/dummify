@@ -1,0 +1,215 @@
+/* Shared components from docs/style-guide.md → Components. Tokens only, no raw values. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* The hidden attribute must always win. Without this, any class that sets display (e.g. .section { display: flex })
+   overrides the browser's [hidden] rule and the element stays visible (T-011 bug: access banner never hid). */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--font-sm);
+  line-height: var(--line-label);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-control);
+}
+
+/* Switch row: <label class="row"><span class="row-text">…</span><input class="switch" type="checkbox" role="switch"></label> */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--h-row);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.row-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-hint {
+  color: var(--color-secondary);
+  font-size: var(--font-xs);
+  font-weight: 400;
+  line-height: var(--line-text);
+}
+
+.switch {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 32px;
+  height: 18px;
+  margin: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-control);
+  cursor: pointer;
+  transition: background-color var(--duration) var(--ease-out);
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: var(--space-0_5);
+  left: var(--space-0_5);
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  transition: transform var(--duration) var(--ease-out);
+}
+
+.switch:checked {
+  background: var(--color-ink);
+}
+
+.switch:checked::after {
+  transform: translateX(14px);
+}
+
+.switch:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Status pill */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1_5);
+  height: var(--h-chip);
+  padding: 0 var(--space-2_5);
+  border-radius: var(--radius-pill);
+  background: var(--color-fill);
+  color: var(--color-secondary);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status[data-state='active'] {
+  background: var(--color-ok-bg);
+  color: var(--color-ok);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ok-dot);
+}
+
+.divider {
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--color-hairline);
+}
+
+.muted {
+  color: var(--color-secondary);
+}
+
+/* Buttons (docs/style-guide.md → Buttons) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--h-button);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-fill);
+  color: var(--color-ink);
+  font: inherit;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.button:hover {
+  background: var(--color-fill-hover);
+}
+
+.button-primary {
+  background: var(--color-ink);
+  color: var(--color-on-ink);
+}
+
+.button-primary:hover {
+  background: var(--color-ink);
+  opacity: 0.9;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Warning banner (docs/style-guide.md → Warning banner): only for states that stop dummify from working. */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2_5);
+  border-radius: var(--radius-panel);
+  background: var(--color-warn-bg);
+  color: var(--color-warn);
+  font-weight: 500;
+}
+
+.banner-text {
+  flex: 1;
+  line-height: var(--line-text);
+}
+
+/* Brand lockup (docs/style-guide.md → Brand): tile mark + lowercase wordmark, gap = 0.24 × type size. */
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(0.24 * var(--lockup-size, var(--font-md)));
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.lockup-mark {
+  flex: none;
+  width: calc(1.25 * var(--lockup-size, var(--font-md)));
+  height: calc(1.25 * var(--lockup-size, var(--font-md)));
+  border-radius: 24.4%; /* matches the tile's corner radius */
+}
+
+/* On dark backgrounds the ink tile needs a subtle edge (brand sheet: "On dark"). */
+@media (prefers-color-scheme: dark) {
+  .lockup-mark {
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18);
+  }
+}
+
+.lockup-word {
+  font-family: var(--font-brand);
+  font-size: var(--lockup-size, var(--font-md));
+  font-weight: 800;
+  letter-spacing: var(--tracking-brand);
+  line-height: 1;
+  text-transform: lowercase;
+}

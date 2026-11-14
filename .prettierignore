@@ -1,0 +1,11 @@
+.output/
+.wxt/
+coverage/
+node_modules/
+package-lock.json
+tests/fixtures/
+# Byte-exact input and expected output of scripts/sanitize-fixture.py (checked by verify.sh).
+tests/sanitize-fixture/
+# Private project notes and long-form docs are hand-formatted.
+.agent/
+*.md

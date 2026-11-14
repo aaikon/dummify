@@ -1,0 +1,23 @@
+# Runs the same quality gate as local development (scripts/verify.sh) on every push and pull request.
+# The project-state step is skipped here (those files are private), so the run ends with NOT VERIFIED but exit 0.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: scripts/verify.sh

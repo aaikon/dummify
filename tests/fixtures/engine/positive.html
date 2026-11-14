@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Synthetic results page: every block marked data-expect="hidden" must be hidden by the engine test rules. -->
+<html lang="en">
+  <head>
+    <title>Results</title>
+  </head>
+  <body>
+    <main id="results">
+      <div class="result-block" id="overview" data-expect="hidden">
+        <h2>AI   Overview</h2>
+        <p>Generated answer text…</p>
+      </div>
+      <div class="result-block" id="localized" data-expect="hidden">
+        <div role="heading" aria-level="2">Tekoälyn yleiskatsaus</div>
+        <p>Tekoälyn tuottama vastaus…</p>
+      </div>
+      <div class="result-block" id="aria-only" data-expect="hidden">
+        <button aria-label="Ask AI"><svg width="16" height="16"></svg></button>
+      </div>
+      <aside data-ai-panel id="panel" data-expect="hidden">Chat with our assistant</aside>
+      <div class="result-block" id="organic" data-expect="visible">
+        <h3><a href="https://example.org/">Example result</a></h3>
+        <p>Normal content that must stay visible.</p>
+      </div>
+    </main>
+  </body>
+</html>

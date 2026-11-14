@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Synthetic product page with an AI review summary (marked by class + standalone disclaimer). -->
+<html lang="en">
+  <head><title>Kettle 2000</title></head>
+  <body>
+    <main>
+      <h1>Kettle 2000</h1>
+      <section id="reviews" data-expect="visible">
+        <h2>Customer reviews</h2>
+        <section class="review-ai-summary" id="ai-summary" data-expect="hidden">
+          <h3>Customers say</h3>
+          <p>Customers like the fast boiling and quiet operation. Some mention the lid is stiff.</p>
+          <p class="small-print">AI-generated from the text of customer reviews</p>
+        </section>
+        <div class="review" data-expect="visible">
+          <p>Boils fast. Lid is a bit stiff.</p>
+        </div>
+        <button class="write-review" data-expect="visible">Write a review</button>
+      </section>
+    </main>
+  </body>
+</html>
