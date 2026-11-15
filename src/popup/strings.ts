@@ -9,8 +9,8 @@ export const strings = {
   whatToHide: 'What to hide',
   categories: {
     ai: { label: 'AI features', hint: 'AI answers, “Ask AI” buttons, AI widgets' },
-    'short-form': { label: 'Short-form video', hint: 'Shorts and Reels' },
-    suggestions: { label: 'Suggestions', hint: '“People also ask”, autocomplete, autoplay feeds' },
+    'short-form': { label: 'Short-form video', hint: 'Shorts on YouTube and Google' },
+    suggestions: { label: 'Suggestions', hint: 'Search suggestions, like “People also ask”' },
   },
   heuristics: 'Detect AI on other sites',
   heuristicsHint: 'Look for AI widgets on sites without a dedicated rule.',

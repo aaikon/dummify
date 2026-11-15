@@ -35,6 +35,7 @@ which keeps it in `storage.session` for the popup and badge (T-010).
 | Badge              | `src/platform/badge.ts`               | Per-tab toolbar badge text/colors (`browser.action` injected)          | nothing                    |
 | Entrypoints        | `src/entrypoints/*`                   | WXT wiring only: call into `platform/` and `popup/`                    | `platform/*`, `popup/*`, `rules/*` |
 | Third-party notices | `scripts/third-party-notices.ts` (build time, via a `wxt.config.ts` hook) | Writes `THIRD_PARTY_NOTICES.txt` (license + copyright of every bundled font and library) into each build (T-032). **Register anything new that ships in the bundle in `BUNDLED_PACKAGES`.** A test fails if a font imported by `src/**/*.css` is missing | node `fs` only, never imported by `src/` |
+| Store packaging | `scripts/store-sources.ts` (allowlist for the AMO sources zip, via `wxt.config.ts`), `scripts/check-release.sh` | Builds the store zips. The sources zip takes only allowlisted files, and a test fails if any of them isn't tracked by git. A rebuild from it must be byte-identical (T-013) | node only, never imported by `src/` |
 
 ## Data flow
 
