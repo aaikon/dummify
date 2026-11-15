@@ -87,6 +87,8 @@ chore/t-004-z   ──┘                        ▲
 ```
 
 - **Never commit directly to `main` or `dev`.** They only receive merges. The `pre-commit` hook blocks direct commits.
+- **On GitHub,** a ruleset ("Protect main and dev") blocks force pushes and deletion of `main` and `dev` for everyone,
+  the owner included. Merges pushed on top still work. Never rewrite either branch's history.
 - Work branches are cut **from `dev`** and merged back into `dev`.
 - **Releases:** merge `dev` into `main` (optionally through a `release/vX.Y.Z` branch for final fixes), then tag `vX.Y.Z`.
   Then build and check the store zips from the tag: docs/store-listing.md → Release checklist.
