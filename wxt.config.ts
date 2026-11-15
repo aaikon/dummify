@@ -1,4 +1,5 @@
 import { defineConfig } from 'wxt';
+import { STORE_SOURCES } from './scripts/store-sources';
 import { thirdPartyNotices } from './scripts/third-party-notices';
 
 // https://wxt.dev/api/config.html
@@ -13,12 +14,12 @@ export default defineConfig({
       });
     },
   },
+  // Firefox Add-ons sources zip: an allowlist, see scripts/store-sources.ts.
+  zip: { includeSources: STORE_SOURCES },
   manifestVersion: 3,
   manifest: ({ browser }) => ({
     name: 'dummify',
-    // ≤ 132 chars (Chrome Web Store limit). Tagline from the owner (T-018).
-    description:
-      'dummify takes the "smart" out of the web: hides AI answers, Shorts and Reels, and algorithmic suggestions.',
+    // description: WXT takes it from package.json (one source; scripts/store-copy.test.ts checks it).
     // Product invariant: no network access. storage = settings; activeTab = read the current tab's URL when the
     // user opens the popup (Firefox withholds tab.url otherwise). See ADR-003.
     permissions: ['storage', 'activeTab'],
@@ -30,6 +31,8 @@ export default defineConfig({
         gecko: {
           // Permanent AMO identity: never change after the first Firefox release (also required for storage.sync).
           id: '{c895a208-43a8-4125-a229-3bd263a910fa}',
+          // data_collection_permissions is only understood from Firefox 140 on.
+          strict_min_version: '140.0',
           // Product invariant: we collect and transmit nothing.
           data_collection_permissions: { required: ['none'] },
         },

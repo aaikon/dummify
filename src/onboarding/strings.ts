@@ -6,15 +6,15 @@ export const strings = {
   tagline: 'dummify takes the “smart” out of the web.',
   missingTitle: 'One step left',
   missingBody:
-    'dummify hides AI answers, Shorts and Reels, and algorithmic suggestions by quietly adjusting the pages you visit. To do that, your browser needs to let it run on all sites.',
+    'dummify hides AI answers, YouTube Shorts, and algorithmic suggestions by quietly adjusting the pages you visit. To do that, your browser needs to let it run on all sites.',
   privacy: 'dummify doesn’t collect or send anything. Nothing leaves your browser.',
   allow: 'Allow access to all sites',
   denied: 'Access wasn’t granted, so dummify can’t hide anything yet. You can try again anytime.',
   hidesTitle: 'What dummify hides',
   hides: [
     'AI answers, “Ask AI” buttons and AI chat widgets',
-    'Shorts and Reels',
-    'Algorithmic suggestions, like “People also ask” and autoplay feeds',
+    'Shorts on YouTube and Google',
+    'Search suggestions, like “People also ask” and autocomplete',
   ],
   grantedTitle: 'You’re all set',
   pinHint:
