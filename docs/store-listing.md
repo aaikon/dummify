@@ -104,7 +104,8 @@ sentence case.
 
 - **Categories:** Search Tools, Social & Communication.
 - **License:** MIT. **Privacy policy:** paste `PRIVACY.md`.
-- **Firefox for Android:** not declared. Desktop Firefox 140+ only (`strict_min_version`).
+- **Minimum versions:** Firefox 140 on desktop, 142 on Android (`gecko_android`), the first versions that support
+  `data_collection_permissions`. Android isn't tested yet, so leave it unticked at upload until it is.
 
 ## Release checklist
 
