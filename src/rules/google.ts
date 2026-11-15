@@ -3,7 +3,8 @@ import type { Rule } from '@/core/rule';
 /*
  * Google Search (google.<tld>, not subdomains such as mail.google.com).
  * Content kinds: AI features (AI Overview, AI Mode), automated suggestions (People also ask, related
- * searches, autocomplete; T-024), and short-form video (Short videos tab + carousel; T-027).
+ * searches, autocomplete; T-024; refinement chips, T-034), and short-form video (Short videos tab + carousel;
+ * T-027).
  *
  * Results page structure (observed 2026-11, fixtures in tests/fixtures/google/):
  *
@@ -91,6 +92,21 @@ export const googleRules: readonly Rule[] = [
     // #bres is only the related-searches block. Pagination is a sibling outside it. Require links so an
     // empty placeholder isn't counted.
     selectors: ['#bres:has(a)'],
+  },
+  {
+    id: 'google.refinement-chips',
+    category: 'suggestions',
+    description: 'Suggested search refinements ("To soft", "In pan", …) under the search tabs',
+    hosts: ['google.*'],
+    // The chip bar (#hdtb-sc) sits under the tabs. Each chip links to the search plus a refinement, carried in `uds`
+    // ("Add To soft" / "Lisää …"). Only the chip list is hidden, never the bar: the tabs and the Tools button are
+    // outside it. Both selectors stay inside #hdtb-sc, because after a refinement other links (e.g. tabs) can carry
+    // `uds` too.
+    selectors: [
+      '#hdtb-sc [role="list"]:has(a[href*="uds="])',
+      // Fallback if the list loses its role: each chip on its own.
+      '#hdtb-sc [role="listitem"]:has(a[href*="uds="])',
+    ],
   },
   {
     id: 'google.autocomplete',

@@ -11,7 +11,8 @@ hidden before the page draws them, so nothing flashes on screen.
   chat widgets on other sites.
 - **Short-form video:** YouTube Shorts across YouTube, and Google's "Short videos". A Short opened from a link
   plays, but the feed of more Shorts doesn't.
-- **Automated suggestions:** "People also ask", related searches, and search autocomplete in Google Search.
+- **Automated suggestions:** "People also ask", related searches, suggested refinements under the search
+  tabs, and search autocomplete in Google Search.
 
 More sites are on the way: Instagram and Facebook Reels, TikTok, YouTube recommendations, Bing, and DuckDuckGo.
 
