@@ -23,6 +23,8 @@ shows how much was hidden on the page.
 dummify makes no network requests and collects no data. Your settings stay in your browser. It asks for access to
 all sites only so it can hide things on them.
 
+The full [privacy policy](PRIVACY.md) is short.
+
 ## Install
 
 Store listings for Chrome and Firefox are coming. Until then, build it from source with Node.js 22 or newer:
@@ -37,6 +39,19 @@ npm run build:firefox    # Firefox: .output/firefox-mv3
   `.output/chrome-mv3`.
 - **Firefox:** open `about:debugging#/runtime/this-firefox`, choose "Load Temporary Add-on", and pick
   `.output/firefox-mv3/manifest.json`.
+
+## Store packages
+
+To build the zips uploaded to the Chrome Web Store and Firefox Add-ons:
+
+```bash
+npm ci
+npm run zip              # .output/dummify-<version>-chrome.zip
+npm run zip:firefox      # .output/dummify-<version>-firefox.zip and the -sources.zip for Firefox Add-ons review
+```
+
+A rebuild from the sources zip (`npm ci && npm run zip:firefox`) gives an identical extension.
+`scripts/check-release.sh` builds all three zips and checks this.
 
 ## Development
 
