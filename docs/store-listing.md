@@ -54,21 +54,31 @@ These links work only once the repository is public.
 | --------------------------------------- | ------------------------- | -------------------------------------------- |
 | Store icon (Chrome, required)           | 128×128 PNG               | `public/icon/128.png`                        |
 | Add-on icon (AMO)                       | from the manifest         | `public/icon/*.png`                          |
-| Screenshots (Chrome: 1–5, required)     | 1280×800 PNG, no alpha    | captured by hand, see the shot list below    |
+| Screenshots (Chrome: 1–5, required)     | 1280×800 PNG, no alpha    | kept outside the repo, see below             |
 | Screenshots (AMO, optional but shown)   | same files                |                                              |
 | Small promo tile (Chrome)               | 440×280 PNG, no alpha     | `store/promo-small.png`, from `store/promo-small.html` (render command inside) |
 
-**Shot list** (a real browser, light theme, 1280×800 window, signed out or with no personal data visible):
+**Screenshots (0.1.x):** four shots, uploaded in this order:
 
-1. A Google results page for an everyday question, with dummify on: no AI Overview, no "People also ask". The
-   popup is open, showing the count and "● Active".
-2. The same search with dummify off for the site (the AI Overview is back), so the difference is visible. Use the
-   same query as shot 1.
-3. YouTube home or search with dummify on: no Shorts shelf.
-4. The popup alone on a plain background, with all switches visible.
+1. Google, "How to boil an egg?", dummify on: no AI Overview, AI Mode tab, refinement chips, or "People also ask".
+2. The same search with dummify off.
+3. YouTube search, dummify on: no Shorts shelf or Shorts filter.
+4. The same search with dummify off.
 
-Follow docs/style-guide.md: no sparkle or AI imagery in captions or framing, no hype. Captions are optional and
-sentence case.
+They show other people's thumbnails, faces, and channel names, so they're **never committed** to this public repo.
+
+**How they're made** (repeat this when retaking them):
+
+- **Capture:** a real browser window. Any theme works (the current set is dark). On Google, sign out or crop away
+  the account avatar.
+- **Crop:** to the page content just below the browser toolbar, which drops the tabs, the add-on icons, and the
+  avatar, at the 1280×800 ratio (16:10). Then scale to exactly 1280×800.
+- **Cursor:** paint over the screenshot tool's cursor with the flat background color.
+- **Label:** a pill in the top-right corner, Geist 600 16px, rendered with headless Chromium. "With dummify" is Ink
+  on Crash Yellow with the tile mark. "Without dummify" is Ink on Paper. Without the labels, the "off" shots would
+  show an AI Overview in dummify's own listing.
+
+Follow docs/style-guide.md: no sparkle or AI imagery in captions or framing, and no hype.
 
 ## Chrome Web Store: Privacy practices tab
 
