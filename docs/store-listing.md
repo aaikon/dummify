@@ -29,7 +29,7 @@ It quietly hides the features that try to think for you:
 
 • AI features: AI Overviews and AI Mode in Google Search, plus "Ask AI" and "Summarize with AI" buttons and AI chat widgets on other sites.
 • Short-form video: YouTube Shorts across YouTube, and the short videos in Google Search. A Short someone sends you still plays, but the endless feed of more Shorts doesn't.
-• Search suggestions: "People also ask", related searches, and autocomplete in Google Search.
+• Search suggestions: "People also ask", related searches, suggested refinements, and autocomplete in Google Search.
 
 Known features are hidden before the page draws them, so nothing flashes on screen.
 

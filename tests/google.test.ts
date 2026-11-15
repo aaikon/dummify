@@ -61,11 +61,12 @@ describe('google rules', () => {
       'google.ai-mode',
       'google.people-also-ask',
       'google.related-searches',
+      'google.refinement-chips',
       'google.autocomplete',
       'google.short-videos',
     ]);
-    expect(rulesForHost(ALL_RULES, 'google.fi')).toHaveLength(6);
-    expect(rulesForHost(ALL_RULES, 'google.co.uk')).toHaveLength(6);
+    expect(rulesForHost(ALL_RULES, 'google.fi')).toHaveLength(7);
+    expect(rulesForHost(ALL_RULES, 'google.co.uk')).toHaveLength(7);
     expect(rulesForHost(ALL_RULES, 'mail.google.com')).toHaveLength(0);
     expect(rulesForHost(ALL_RULES, 'docs.google.com')).toHaveLength(0);
   });
@@ -83,10 +84,13 @@ describe('google rules', () => {
       block(aiOverviewHtml);
       expect(isHidden(aiModeTab())).toBe(true);
       expect(isHidden(shortVideosTab())).toBe(true);
-      // Navigation tabs only (the hidden Short videos carousel also contains role="listitem" cards).
+      // Navigation tabs only (the hidden Short videos carousel also contains role="listitem" cards, and the hidden
+      // refinement chips under the tabs are list items in the navigation too, T-034).
       const otherTabs = Array.from(
         document.querySelectorAll('[role="navigation"] [role="listitem"]'),
-      ).filter((li) => !li.querySelector('a[href*="udm=50"], a[href*="udm=short_vids"]'));
+      ).filter(
+        (li) => !li.querySelector('a[href*="udm=50"], a[href*="udm=short_vids"], a[href*="uds="]'),
+      );
       expect(otherTabs.length).toBeGreaterThan(2);
       for (const li of otherTabs) expect(isHidden(li), li.textContent).toBe(false);
     });
@@ -96,11 +100,12 @@ describe('google rules', () => {
       expectOrganicResultsVisible();
     });
 
-    it('hides exactly: AI Mode + Short videos tabs, overview, People also ask, Shorts carousel, 2 Shorts in Videos, 1 Shorts result, related searches', () => {
+    it('hides exactly: AI Mode + Short videos tabs, refinement chips, overview, People also ask, Shorts carousel, 2 Shorts in Videos, 1 Shorts result, related searches', () => {
       const b = block(aiOverviewHtml);
       expect(tagged().map((el) => el.getAttribute(TAG_ATTR))).toEqual([
         'google.ai-mode',
         'google.short-videos',
+        'google.refinement-chips',
         'google.ai-overview',
         'google.people-also-ask',
         'google.short-videos',
@@ -109,7 +114,7 @@ describe('google rules', () => {
         'google.short-videos',
         'google.related-searches',
       ]);
-      expect(b.count).toBe(9);
+      expect(b.count).toBe(10);
     });
 
     it('still hides the block by its heading if Google drops the structural markers', () => {
@@ -231,6 +236,90 @@ describe('google rules', () => {
       });
       blocker.start();
       expect(isHidden(one('#organic-in-paa'))).toBe(false);
+    });
+  });
+
+  describe('refinement chips (T-034)', () => {
+    const chipBar = () => one('#hdtb-sc');
+    const chipList = () => one('#hdtb-sc [role="list"]');
+    const chips = () => Array.from(document.querySelectorAll('#hdtb-sc a[href*="uds="]'));
+    /** The search tabs: list items in the navigation outside the chip bar. */
+    const tabs = () =>
+      Array.from(document.querySelectorAll('[role="navigation"] [role="listitem"]')).filter(
+        (li) => !li.closest('#hdtb-sc'),
+      );
+
+    it('hides the whole chip list (fixture: 5 chips like "Lisää From cold water")', () => {
+      block(aiOverviewHtml);
+      expect(chips()).toHaveLength(5);
+      expect(chips()[0]?.getAttribute('aria-label')).toMatch(/^Lisää /);
+      expect(isHidden(chipList())).toBe(true);
+      expect(chipList().getAttribute(TAG_ATTR)).toBe('google.refinement-chips');
+      for (const chip of chips()) expect(isHidden(chip), chip.textContent).toBe(true);
+    });
+
+    it('keeps the search tabs, the chip bar itself, and the results visible', () => {
+      block(aiOverviewHtml);
+      // Only the list is hidden, never the bar, so anything else Google renders in it stays. (The Tools button is
+      // built by script and isn't in saved pages; in the live page it sits in the tab row, outside the bar.)
+      expect(isHidden(chipBar())).toBe(false);
+      const visibleTabs = tabs().filter(
+        (li) => !li.querySelector('a[href*="udm=50"], a[href*="udm=short_vids"]'),
+      );
+      expect(visibleTabs.length).toBeGreaterThan(2);
+      for (const li of visibleTabs) expect(isHidden(li), li.textContent).toBe(false);
+      expectOrganicResultsVisible();
+    });
+
+    it('hides chips Google adds after load', async () => {
+      block(aiOverviewHtml);
+      // Google fills the list's empty slots from a script after the page loads.
+      chipList().insertAdjacentHTML(
+        'beforeend',
+        '<div role="listitem"><a id="late-chip" href="/search?q=x&amp;uds=ABC" aria-label="Add For ramen">For ramen</a></div>',
+      );
+      await flush();
+      expect(isHidden(one('#late-chip'))).toBe(true);
+    });
+
+    it('hides the chip bar when it is inserted after the page (and only its list)', async () => {
+      loadDocument(aiOverviewHtml);
+      const barHtml = chipBar().outerHTML;
+      block(noAiOverviewHtml);
+      expect(document.querySelector('#hdtb-sc')).toBeNull();
+      one('#rso').insertAdjacentHTML('beforebegin', barHtml);
+      await flush();
+      expect(chipList().getAttribute(TAG_ATTR)).toBe('google.refinement-chips');
+      expect(isHidden(chipList())).toBe(true);
+      expect(isHidden(chipBar())).toBe(false);
+    });
+
+    it('still hides each chip if the list loses its role (fallback selector)', () => {
+      block(aiOverviewHtml.replace('class="IUOThf" role="list"', 'class="IUOThf"'));
+      expect(document.querySelector('#hdtb-sc [role="list"]')).toBeNull();
+      expect(chips()).toHaveLength(5);
+      for (const chip of chips()) {
+        expect(isHidden(chip), chip.textContent).toBe(true);
+        expect(chip.closest(`[${TAG_ATTR}]`)?.getAttribute(TAG_ATTR)).toBe(
+          'google.refinement-chips',
+        );
+      }
+    });
+
+    it('never hides a tab whose link carries a refinement (uds) outside the chip bar', () => {
+      // After a refinement, Google can keep `uds` on the other tabs' links.
+      loadDocument(aiOverviewHtml);
+      const link = tabs()
+        .map((li) => li.querySelector('a[href*="udm=vids"]'))
+        .find((a) => a !== null);
+      if (!link) throw new Error('fixture has no Videos tab');
+      link.setAttribute('href', `${link.getAttribute('href') ?? ''}&uds=ABC`);
+      blocker = createBlocker({ doc: document, rules: googleRules });
+      blocker.start();
+      const tab = link.closest('[role="listitem"]');
+      expect(tab).not.toBeNull();
+      if (tab) expect(isHidden(tab)).toBe(false);
+      expect(link.hasAttribute(TAG_ATTR)).toBe(false);
     });
   });
 
