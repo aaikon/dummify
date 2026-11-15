@@ -36,6 +36,9 @@ export default defineConfig({
           // Product invariant: we collect and transmit nothing.
           data_collection_permissions: { required: ['none'] },
         },
+        // Firefox for Android supports data_collection_permissions from 142. Without this key, Android inherits
+        // the 140 above and AMO's linter rejects the manifest.
+        gecko_android: { strict_min_version: '142.0' },
       },
     }),
   }),

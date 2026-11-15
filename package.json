@@ -1,7 +1,7 @@
 {
   "name": "dummify",
   "description": "dummify takes the \"smart\" out of the web: hides AI answers, YouTube Shorts, and algorithmic search suggestions.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "private": true,
   "type": "module",
