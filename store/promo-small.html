@@ -1,0 +1,75 @@
+<!doctype html>
+<!--
+  Chrome Web Store small promo tile, 440×280 (docs/store-listing.md → Graphics). Same look as the onboarding hero:
+  Ink lockup on Crash Yellow (docs/style-guide.md → Brand). Fonts come from node_modules (run npm install first).
+  Render:
+    chromium-browser --headless --hide-scrollbars --force-device-scale-factor=1 --window-size=440,280 \
+      --screenshot=store/promo-small.png "file://$PWD/store/promo-small.html"
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>dummify promo tile</title>
+    <style>
+      @font-face {
+        font-family: 'Bricolage Grotesque';
+        font-weight: 800;
+        src: url('../node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2')
+          format('woff2');
+      }
+      @font-face {
+        font-family: 'Geist Variable';
+        font-weight: 100 900;
+        src: url('../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2')
+          format('woff2');
+      }
+      html,
+      body {
+        margin: 0;
+        width: 440px;
+        height: 280px;
+        overflow: hidden;
+      }
+      body {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 22px;
+        padding: 0 44px;
+        background: #ffc400;
+        color: #111111;
+        -webkit-font-smoothing: antialiased;
+      }
+      .lockup {
+        display: flex;
+        align-items: center;
+        gap: calc(0.24 * 56px);
+      }
+      .lockup img {
+        width: calc(1.25 * 56px);
+        height: calc(1.25 * 56px);
+      }
+      .lockup span {
+        font-family: 'Bricolage Grotesque', sans-serif;
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+      p {
+        margin: 0;
+        font-family: 'Geist Variable', system-ui, sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+        text-wrap: balance;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lockup"><img src="../src/assets/brand/mark.svg" alt="" /><span>dummify</span></div>
+    <p>dummify takes the “smart” out of the web.</p>
+  </body>
+</html>

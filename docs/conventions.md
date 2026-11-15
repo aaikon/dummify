@@ -89,6 +89,7 @@ chore/t-004-z   ──┘                        ▲
 - **Never commit directly to `main` or `dev`.** They only receive merges. The `pre-commit` hook blocks direct commits.
 - Work branches are cut **from `dev`** and merged back into `dev`.
 - **Releases:** merge `dev` into `main` (optionally through a `release/vX.Y.Z` branch for final fixes), then tag `vX.Y.Z`.
+  Then build and check the store zips from the tag: docs/store-listing.md → Release checklist.
 - **Hotfixes:** branch from `main`, merge into `main`, then merge `main` back into `dev` so the fix isn't lost.
 - Use `git merge --no-ff` into `dev` and `main` so each task shows up as one unit in the history.
 
