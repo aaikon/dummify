@@ -44,7 +44,8 @@ Open source under the MIT license.
 
 - **Homepage / source:** https://github.com/aaikon/dummify
 - **Support:** https://github.com/aaikon/dummify/issues
-- **Privacy policy:** https://github.com/aaikon/dummify/blob/main/PRIVACY.md (`PRIVACY.md`)
+- **Privacy policy:** https://github.com/aaikon/dummify/blob/main/PRIVACY.md (`PRIVACY.md`). Used on the Chrome
+  Web Store. Not needed on AMO (see below).
 
 These links work only once the repository is public.
 
@@ -113,7 +114,10 @@ Follow docs/style-guide.md: no sparkle or AI imagery in captions or framing, and
   ```
 
 - **Categories:** Search Tools, Social & Communication.
-- **License:** MIT. **Privacy policy:** paste `PRIVACY.md`.
+- **License:** MIT.
+- **Privacy policy:** none. AMO only asks for one when an add-on transmits data from the user's computer, and
+  dummify transmits nothing (the manifest declares `data_collection_permissions: none`, which Firefox shows on the
+  listing).
 - **Minimum versions:** Firefox 140 on desktop, 142 on Android (`gecko_android`), the first versions that support
   `data_collection_permissions`. Android isn't tested yet, so leave it unticked at upload until it is.
 
